@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebmBum Options</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+		  margin-left: 0.5cm;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 400px;
+      }
+		.opt{
+			margin-top: 0.15cm;
+			margin-bottom: 0.15cm;
+		}
+		.row{
+			margin-left: 0.35cm;
+		}
+		.[disabled]{
+			color: red;
+		}
+		#io_prog{
+			width: 35em;
+			height: 1em;
+			margin-top: 0.35cm;
+			opacity: 0;
+		}
+		table, td, th {
+			border: 1px solid black;
+			text-align: left; 	
+		}
+		table {
+			width: 16cm;
+			border-collapse: collapse;
+		}
+		th{
+			height: 20px;
+			color: #ffffff;
+			background-color: #3a3a3a;			
+		}
+		th, td{ 
+			padding: 3px 7px 2px 7px;
+		}
+		#utag_mod{
+			position: absolute;
+			margin-left: 18px;
+			margin-top: 4px;
+			display: none;
+		}
+		.tdIco{
+			text-align: center;
+		}
+		#inp_uico{
+			display: none;
+		}
+		ul{
+			list-style-type: none;  
+		}
+		li {  
+			float: left;  
+			margin: 2px; 
+		}
+		#test{
+			width: 150px;
+			height: 200px;
+			background-color: #3a3a3a;
+		}
+		
+    </style>
+
+    <script src="options.js"></script>	
+  </head>
+  <body>	 
+	<h2>Extension:</h2>
+	<div id="hidePosts">
+		<h3>Hide</h3>
+		<label>
+		<input type="checkbox" id="chb_autohide"></input>
+		<span class="opt" title="">Autohide</span>
+		</label>
+		<br>
+		<br>
+		<input type="checkbox" id="chb_hidePosts"></input>
+		<span class="opt" title="">Hide posts:</span><br>
+		
+		<form action="" id="pHideForm">
+			<input type="radio" class="opt row" name="pHide" id="pHide1" value="all">With all webms watched.</input><br>
+			<input type="radio" class="opt row" name="pHide" id="pHide2" value="one">With one or more webms watched.</input>
+		</form>
+	</div>
+	<br>
+	<div id="hideStyle">
+		<input class="opt"  type="checkbox" id="chb_hidStyle">Stylize hidden </input>
+		<br>
+		<input type="text" class="opt row" id="inp_hidStyle" size="30"></input>
+		<button id="btn_hidStyle">Save</button><br><br>
+	</div>
+	<div id="clones">
+		<input class="opt"  type="checkbox" id="chb_doClones"></input>
+		<span title=" ">Check clones</span>
+		<br>
+		<input type="checkbox" class="opt row" id="chb_chkPvw"></input>
+		<span title=" &#10; "
+		>Check preview image</span>		
+		<br> 
+		<input type="checkbox" class="opt row" id="chb_chkSzWH"></input>
+		<span title=" ">Check size, width and heigth</span>
+		<br> 
+		<label class="opt row">Size bias (KiB): </label>
+		<input type="text" id="inp_szBias" pattern="\d+" size="15"></input>
+		<button id="btn_szBias">Save</button>
+		<br><br>
+		<input class="opt row" type="checkbox" id="chb_cloneStyle">Stylize clones</input>
+		<br>
+		<input type="text" class="opt row" id="inp_cloneStyle" size="30"></input>
+		<button id="btn_cloneStyle">Save</button>
+		<br>
+		<input type="checkbox" class="opt row" id="chb_hideClPosts">
+		<span title=" ">Do not hide posts with clones</span></input>
+		<br>
+	</div>
+	<div id="collect">
+		<h3>Collect</h3>
+		<input class="opt"  type="checkbox" id="chb_saveAll"></input>
+		<span title=" ">Unwatched</span>
+		<br>
+		<input class="opt"  type="checkbox" id="chb_savePvwMd5"/>
+		<span title=" ">Preview md5</span>
+		<br>		 
+		<input class="opt"  type="checkbox" id="chb_dnWebm"/>
+		<span title=" ">Webms auto download:</span>
+		<br> 
+		<input type="text" class="opt row" id="inp_dnPath" size="30" title=" "/>
+		<button id="btn_dnPath">Save</button>
+		<br> 
+	</div>	
+	<br><hr>
+	<h2>Database:</h2>
+	<div id="records">
+		<label title="Records in base:">Records: </label>
+		<span id="numRecords">database busy</span><br><br>
+	</div>
+	<div>
+		<button id="btn_drop">Delete</button>
+		<button id="btn_export" title=" ">Export</button>
+		<button id="btn_import" title=" ">Import</button>
+		<input type="file" id="dbImport" title=" "></input> 
+		<br>
+		<progress id="io_prog" value="0" max="100" size="100"></progress>
+		<br>		
+	</div>
+	<hr>
+	<div>
+		<input type="checkbox" id="chb_utags">Enable user tags panel</input>
+		<br><br> 
+		<div id="utag_mod">
+			<button id="utag_add">Add</button>
+			<button id="utag_del">Del</button>
+		</div>
+		<table id="utags_table">
+			<tr id="utag_th">
+				<th>Title</th>
+				<th>Path</th>
+				<th>Icon</th>
+			</tr>
+		</table>
+		<br>
+		<input type="file" id="inp_uico"></input> 		
+	</div> 
+	<br><br>
+  </body>
+</html>
+

@@ -1,0 +1,40 @@
+{
+	"manifest_version": 2,
+
+	"name": "ShEBM",
+	"description": "Webm thread filter",
+	"version": "0.1.2",
+	
+	"omnibox": { "keyword" : "webm" },
+	
+	"options_page": "options.html",
+
+	"browser_action": {
+		"default_icon": "res/icon16.png",
+		"default_popup": "menu.html"
+	},
+	
+	"icons": { "16": "res/icon16.png",
+		"48": "res/icon48.png",
+		"128": "res/icon128.png" 
+	}, 
+
+	"permissions": [ "activeTab", "storage", "downloads" ],
+
+	"background": { 
+		"scripts": [ "background/background.js" ],
+		"persistent": true
+	},
+
+	"content_scripts": [{
+		"matches": [ "http://2ch.hk/*/res/*", "https://2ch.hk/*/res/*" ],
+		"js": [  
+			"content/spark-md5.min.js",
+			"content/content.js"		
+		]
+	}],
+	
+	//"devtools_page": "devtools/devtools.html"
+	
+	"web_accessible_resources": [ "makabinj.js", "res/none.png", "res/info.png" ]
+}
