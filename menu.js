@@ -21,12 +21,14 @@ window.onload = function()
 		});
 	};
 	
+	/*
 	var btn_unhideall = document.getElementById("btn_unhideall");
 	btn_unhideall.onclick = function(){
 		chrome.tabs.query({"active": true, "currentWindow": true}, function(tabs){		 
 			chrome.tabs.sendMessage( tabs[0].id, { id: "unhide_all"} ); 		
 		});
 	};
+	*/
 	
 	var btn_report = document.getElementById("btn_report");
 	btn_report.onclick = function(){
