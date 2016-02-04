@@ -1,11 +1,11 @@
 window.onload = function()
 {	
-	var btn_hidew = document.getElementById("btn_hidew");
+	/*var btn_hidew = document.getElementById("btn_hidew");
 	btn_hidew.onclick = function(){
 		chrome.tabs.query({"active": true, "currentWindow": true}, function(tabs){		 
 			chrome.tabs.sendMessage( tabs[0].id, { id: "threadUpdate"} ); 		
 		});
-	};
+	};*/
 	
 	var btn_hideall = document.getElementById("btn_hideall");
 	btn_hideall.onclick = function(){
@@ -17,7 +17,8 @@ window.onload = function()
 	var btn_options = document.getElementById("btn_options");
 	btn_options.onclick = function(){
 		chrome.tabs.query({"active": true, "currentWindow": true}, function(tabs){		 
-			chrome.extension.sendMessage( { id: "open_options"} );
+			//chrome.extension.sendMessage( { id: "open_options"} );
+			chrome.runtime.openOptionsPage();
 		});
 	};
 	

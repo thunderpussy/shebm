@@ -17,7 +17,6 @@ chrome.tabs.onActivated.addListener(function(obj){
   setOpt();
   chrome.tabs.sendMessage(tab, { id: "setOpt"});
   //cb(tab);
-  console.log("debug : my tab activated.");
  }
 });
 function optInit(){
@@ -25,7 +24,7 @@ function optInit(){
  opt.names = [ 'hidStyle', 'applyHidStyle', 'autohide', 'hidePosts',
   'saveAll', 'pHide', 'szBias', 'savePvwMd5', 'dnWebm',
   'dnPath', 'doClones', 'chkPvw', 'chkSzWH', 'applyCloneStyle',
-  'cloneStyle', 'hideClonePosts', 'utags', 'pics'
+  'cloneStyle', 'hideClonePosts', 'utags', 'utags_enabled', 'pics'
  ];
  return opt;
 }
@@ -63,6 +62,7 @@ function firstTimeInit(){
    {title: 'xxx', path: 'xxx/'}, {title: 'games', path: 'games/'},
    {title: 'trash', path: 'trash/'}
   ],
+  'utags_enabled' : false,
   'pics' : ['res/funny.png', 'res/music.png', 'res/xxx.png', 'res/games.png', 'res/trash.png']
  };
  setDefOpt(0);
@@ -145,6 +145,7 @@ function connect(f){
   st.createIndex("width", "width", { unique: false });
   st.createIndex("height", "heigth", { unique: false });
   st.createIndex("size", "size", { unique: false });
+  st.createIndex("length", "length", { unique: false });
   st.createIndex("hits", "hits", { unique: false });
   st.createIndex("hide", "hide", { unique: false });
   connect(f);
@@ -251,7 +252,9 @@ function checkClones1(data, cb){
    var curs = event.target.result;
    if(curs) {
     var w2 = curs.value;
-    if(w.width == w2.width && w.heigth == w2.heigth && w2.hide){
+    if (w.width == w2.width &&
+      w.heigth == w2.heigth &&
+      w.length == w2.length && w2.hide){
      return cb(w2);
     }
     curs.continue();

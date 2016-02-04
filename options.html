@@ -80,18 +80,16 @@
 	<h2>Extension:</h2>
 	<div id="hidePosts">
 		<h3>Hide</h3>
-		<label>
+		<label style="display:none">
 		<input type="checkbox" id="chb_autohide"></input>
 		<span class="opt" title="">Autohide</span>
 		</label>
-		<br>
-		<br>
 		<input type="checkbox" id="chb_hidePosts"></input>
-		<span class="opt" title="">Hide posts:</span><br>
+		<span class="opt" title="">Hide post:</span><br>
 		
 		<form action="" id="pHideForm">
-			<input type="radio" class="opt row" name="pHide" id="pHide1" value="all">With all webms watched.</input><br>
-			<input type="radio" class="opt row" name="pHide" id="pHide2" value="one">With one or more webms watched.</input>
+			<input type="radio" class="opt row" name="pHide" id="pHide1" value="all">If all webms watched.</input><br>
+			<input type="radio" class="opt row" name="pHide" id="pHide2" value="one">If one or more webms watched.</input>
 		</form>
 	</div>
 	<br>
@@ -107,10 +105,10 @@
 		<br>
 		<input type="checkbox" class="opt row" id="chb_chkPvw"></input>
 		<span title=" &#10; "
-		>Check preview image</span>		
+		>By preview image</span>		
 		<br> 
 		<input type="checkbox" class="opt row" id="chb_chkSzWH"></input>
-		<span title=" ">Check size, width and heigth</span>
+		<span title=" ">By size, width, heigth and duration</span>
 		<br> 
 		<label class="opt row">Size bias (KiB): </label>
 		<input type="text" id="inp_szBias" pattern="\d+" size="15"></input>
@@ -166,11 +164,11 @@
 		<table id="utags_table">
 			<tr id="utag_th">
 				<th>Title</th>
-				<th>Path</th>
+				<th title="Relative to default download location.">Path</th>
 				<th>Icon</th>
 			</tr>
 		</table>
-		<br>
+		<br> 
 		<input type="file" id="inp_uico"></input> 		
 	</div> 
 	<br><br>

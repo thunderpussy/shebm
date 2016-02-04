@@ -14,7 +14,8 @@ opt = {};
 opt.names = [ "hidStyle", "applyHidStyle", "autohide", "hidePosts",
   "saveAll", "pHide", "szBias", "savePvwMd5", "savePvw",
   "dnWebm", "dnPath", "doClones", "chkPvw", "chkSzWH",
-  'applyCloneStyle', 'cloneStyle', 'hideClonePosts', 'utags'
+  'applyCloneStyle', 'cloneStyle', 'hideClonePosts', 'utags',
+  'utags_enabled'
  ];
 opt.hideAll = false;
 window.addEventListener('message', function(event) {
@@ -321,7 +322,7 @@ window.addEventListener("load", function() {
   }, 50);
  });
  fc.addEventListener('mouseenter', function(){
-  if(this.children[0].tagName != 'VIDEO'){
+  if(!opt.utags_enabled || this.children[0].tagName != 'VIDEO'){
    return;
   }
   utWrap.style.display = 'initial';
@@ -332,6 +333,9 @@ window.addEventListener("load", function() {
   clearTimeout(utTO);
  });
  fc.addEventListener("mouseleave", function(e){
+  if(!opt.utags_enabled){
+   return;
+  }
   utTO = setTimeout( utMenuHide, 200 );
  });
  window.addEventListener('click', function(e){
@@ -506,7 +510,7 @@ function webmCheck(p, w, wIdx, clones, prvw){
    return webmCheck(p, w, wIdx, false);
   }
   if(opt.doClones && clones){
-   chrome.runtime.sendMessage({ id: "checkClones", webm: w}, function(clone){
+   chrome.runtime.sendMessage({ id: "checkClones", webm: w }, function(clone){
     if(clone){
      wclones.push(w);
      w.hide = true;
@@ -579,6 +583,9 @@ function makeWebm(el, cb){
  var wh = image_link.match(/,(\d+),(\d+),\d+,\d+/);
  w.width = parseInt(wh[1]);
  w.heigth = parseInt(wh[2]);
+ var tm = el.parentNode.parentNode.previousElementSibling.getElementsByClassName("filesize")[0].innerHTML.split(" ")[2];
+ tm = tm.replace(")", "").split(":");
+ w.length = parseInt(tm[0]) * 3600 + parseInt(tm[1]) * 60 + parseInt(tm[2]);
  time = (new Date()).getTime();
  w.date_add = time;
  w.date_upd = time;
@@ -594,45 +601,6 @@ function makeWebm(el, cb){
  } else {
   return cb(w);
  }
- /*if(opt.savePvwMd5 || opt.chkPvw){
-
-		var rq = new XMLHttpRequest();	
-
-		var url = el.src;
-
-		rq.overrideMimeType('text/plain; charset=x-user-defined');
-
-		
-
-		rq.onreadystatechange = func() {
-
-			if(rq.readyState == 4){
-
-				if(rq.status == 200) {
-
-					w.pvwMd5 = SparkMD5.hash(rq.responseText);	
-
-					//log("debug w.pvwMd5 : " + w.pvwMd5);
-
-				}
-
-				cb(w);
-
-			}
-
-		}
-
-		rq.open("GET", url, true);
-
-		rq.send();
-
-	} else {
-
-		return cb(w);
-
-	}*/
- //log("debug makeWebm:", w);	
- //return w;	
 }
 function getPvwMd5(w, img, cb){
  var rq = new XMLHttpRequest();
@@ -683,103 +651,4 @@ function webmListener(w, el){
  chrome.runtime.sendMessage({id: "setWebm", data: w}, function(md5){
  });
 }
-/*
-
-func malert(text, display){
-
-	
-
-	if(!text){
-
-		return
-
-	}
-
-	if(!display){
-
-		display = 3000;
-
-	}
-
-	 
-
-	var abua = document.createElement("div");
-
-	abua.setAttribute("class", "reply");  	
-
-	abua.setAttribute("id", "ABU-alert"); 
-
-	abua.setAttribute("style", "float:right; clear:both; opacity:0; width:auto; min-width:0; padding:9px 10px;" +
-
-			" margin:1px; overflow:hidden; white-space:pre-wrap; outline:0; border:1px solid grey");
-
-	var msg = document.createElement("div");
-
-	
-
-	msg.setAttribute("style", "display: inline-block; margin-top: 4px");
-
-	msg.innerHTML = text;
-
-	
-
-	upd_block = true;
-
-	abua.appendChild(msg);		
-
-	document.getElementById("ABU-alertbox").appendChild(abua);	
-
-	upd_block = false;
-
-	
-
-	appear(abua, 0, 0.25, 40);	
-
-	setTimeout(func(){ 
-
-		appear(abua, 1, -0.1, 40); 
-
-	} , display );
-
-}
-
- 
-
-func appear(el, opac, step, time){
-
-	var o = opac;
-
-
-
-	var app = setInterval(func(){		
-
-		o += step;
-
-		if(o < 0 || o > 1){
-
-			if( o < 0){
-
-				upd_block = true;
-
-				el.parentNode.removeChild(el);
-
-				upd_block = false;
-
-			} 
-
-			clearInterval(app);
-
-			return;
-
-		} else {
-
-			el.style.opacity = o;
-
-		}
-
-		
-
-	}, time); 
-
-}*/
 })();

@@ -5,8 +5,16 @@
 	"description": "Webm thread filter",
 	"version": "0.1.2",
 	
-	"omnibox": { "keyword" : "webm" },
+	"omnibox": 
+	{ 
+		"keyword" : "webm" 
+	},
 	
+	/*"options_ui":
+	{
+		 "page": "options.html",
+		 "chrome_style": false		 
+	},*/
 	"options_page": "options.html",
 
 	"browser_action": {

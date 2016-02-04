@@ -17,8 +17,10 @@ window.addEventListener('message', function(e) {
 		break;
 	case 'call':
 		var f = window[e.f];
-		if(!f)
+		if(!f){
+			console.log("function " + f + "not found.");
 			break; 
+		}
 		f.apply(window, e.args);
 	break;
 	default: break;

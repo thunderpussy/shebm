@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
 	keys = [ 'hidStyle', 'applyHidStyle', 'autohide', 'hidePosts', 
 		'saveAll', 'pHide', 'doClones', 'szBias', 'savePvwMd5', 'dnWebm', 
 		'dnPath', 'chkSzWH', 'chkPvw', 'applyCloneStyle', 'cloneStyle', 
-		'hideClonePosts', 'utags' ],
+		'hideClonePosts', 'utags', 'utags_enabled' ],
 		
 	names = [ 'inp_hidStyle', 'btn_hidStyle', 'chb_hidStyle', 'chb_autohide',
 		'chb_hidePosts', 'chb_saveAll', 'hb_collectInfo', 'chb_doClones', 'pHide1', 'pHide2',
@@ -32,6 +32,7 @@ window.addEventListener("load", function() {
 	chrome.storage.local.get( keys, function(res){
 		
 		opt.chb_autohide.checked = res.autohide;
+		opt.chb_autohide.disabled = true;
 		opt.inp_hidStyle.value = JSON.stringify(res.hidStyle);
 		
 		opt.chb_hidePosts.checked = res.hidePosts;
@@ -60,6 +61,8 @@ window.addEventListener("load", function() {
 		
 		opt.chb_hideClPosts.value = res.hideClonePosts;
 		opt.chb_hideClPosts.disabled = !res.doClones;
+		
+		opt.chb_utags.checked = res.utags_enabled;
 		
 		table = res.utags;
 		if(table){
@@ -176,7 +179,7 @@ window.addEventListener("load", function() {
 	});
 	
 	opt.chb_autohide.addEventListener("change", function(e){ 
-		chrome.storage.local.set({autohide: opt.chb_autohide.checked});
+		chrome.storage.local.set({ autohide: opt.chb_autohide.checked });
 	});
 		
 	opt.chb_hidePosts.addEventListener("change", function(e){ 
@@ -275,7 +278,11 @@ window.addEventListener("load", function() {
 		clearTimeout(umodTO);
 	});
 	
-	opt.utag_mod.addEventListener("mouseout", onMouseOut);	
+	opt.utag_mod.addEventListener("mouseout", onMouseOut);
+	
+	opt.chb_utags.addEventListener("change", function(e){ 
+		chrome.storage.local.set({ utags_enabled: opt.chb_utags.checked });
+	});
 	
 	function onMouseOut(event){        
 		if(event.toElement == null){
