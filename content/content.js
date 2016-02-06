@@ -339,7 +339,7 @@ window.addEventListener("load", function() {
   utTO = setTimeout( utMenuHide, 200 );
  });
  window.addEventListener('click', function(e){
-  if(e.srcElement.className == "img preview webm-file"){
+  if(e.srcElement.className == "img preview webm-file "){
    lastImg = e.srcElement;
    var el = e.srcElement;
    var md5 = parseMd5(el);
@@ -370,7 +370,7 @@ function makab_call(f, args){
  window.postMessage({ type: 'call', f: f, args: [args]}, '*');
 }
 function setListeners(){
- var els = document.getElementsByClassName("img preview webm-file");
+ var els = document.getElementsByClassName("img preview webm-file ");
  if(els == null){
   return;
  }
@@ -426,16 +426,16 @@ function setOpt(cb){
 function init(cb){
  upd_data = [];
  posts = document.getElementsByClassName("post-wrapper");
- webms = document.getElementsByClassName("img preview webm-file").length;
+ webms = document.getElementsByClassName("img preview webm-file ").length;
  thread = document.getElementsByClassName("thread")[0];
  tid = thread.id.match(/\d+/)[0];
  setOpt(cb);
 }
 function threadUpdate(){
  var oppost = document.getElementsByClassName("post oppost")[0];
- var oppostWebms = oppost.getElementsByClassName("img preview webm-file").length;
+ var oppostWebms = oppost.getElementsByClassName("img preview webm-file ").length;
  posts = document.getElementsByClassName("post-wrapper");
- webms = document.getElementsByClassName("img preview webm-file").length;
+ webms = document.getElementsByClassName("img preview webm-file ").length;
  webms -= oppostWebms;
  if(opt.hideAll){
   last = 0;
@@ -460,7 +460,7 @@ function postCheck(i){
  }
  var p = {};
  p.post = posts[i];
- p.ewi = p.post.getElementsByClassName("img preview webm-file");
+ p.ewi = p.post.getElementsByClassName("img preview webm-file ");
  p.pIdx = i;
  p.wIdx = 0;
  p.wHiden = 0;
@@ -618,13 +618,13 @@ function getPvwMd5(w, img, cb){
  rq.send();
 }
 function parseMd5(e){
- if(e.className != "img preview webm-file"){
-  e = e.getElementsByClassName("img preview webm-file")[0];
+ if(e.className != "img preview webm-file "){
+  e = e.getElementsByClassName("img preview webm-file ")[0];
  }
  return e.parentNode.getAttribute("onclick").match(/[0-9a-f]{32}/)[0];
 }
 function report(){
- //webms = document.getElementsByClassName("img preview webm-file").length;
+ //webms = document.getElementsByClassName("img preview webm-file ").length;
  var proc = webms == 0 ? 0 : ( whidden.length / webms ) * 100.0;
  var text = whidden.length + " / " + webms + " hidden ( " +
   proc.toFixed(1) + "% )\n" + wclones.length + " clones.";

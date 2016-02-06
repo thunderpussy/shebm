@@ -31,8 +31,7 @@ window.addEventListener("load", function() {
 	
 	chrome.storage.local.get( keys, function(res){
 		
-		opt.chb_autohide.checked = res.autohide;
-		opt.chb_autohide.disabled = true;
+		opt.chb_autohide.checked = res.autohide; 
 		opt.inp_hidStyle.value = JSON.stringify(res.hidStyle);
 		
 		opt.chb_hidePosts.checked = res.hidePosts;
